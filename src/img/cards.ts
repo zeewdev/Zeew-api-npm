@@ -4,8 +4,8 @@ import { INT } from "../utils/key";
 import { Bienvenida } from "./Bienvenida";
 
 export class Card {
-  token;
-  bienvenida;
+  token: string;
+  bienvenida: typeof Bienvenida;
 
   constructor(token: string) {
     if (!token) throw new ZeewError("Debes colocar el token");
@@ -13,30 +13,38 @@ export class Card {
     this.bienvenida = Bienvenida;
   }
 
-  async render(render: InstanceType<typeof Bienvenida>): Promise<Buffer> {
+  async render(render: InstanceType<typeof Bienvenida>): Promise<Buffer | undefined> {
     try {
       if (!render) throw new ZeewError("Debes colocar el render");
       if (typeof render === "function")
         throw new ZeewError("Debes colocar el render");
-      if (!render.estilo)
+      if (!render.data.estilo)
         throw new ZeewError("Esta propiedad hace render a la bienvenida");
       const jsonB = JSON.stringify(render),
         jsonP = JSON.parse(jsonB);
 
       const query = new URLSearchParams(jsonP);
 
-      const body = await fetch(
-        `${INT}/bw/${render.estilo}?${query.toString()}`,
+      const fet = await fetch(
+        `${INT}/bw/${render.data.estilo}?${query.toString()}`,
         {
           headers: {
-            token: render.token,
+            token: render.data.token,
           },
         }
-      ).then((res) => res.json());
+      );
+      const body = await fet.json();
 
-      if (body.status == 404) throw new ZeewError(body.mensaje);
+      if (fet.status == 404) {
+        if(typeof body === "string") throw new ZeewError(body);
+        if(typeof body === "object" && "mensaje" in body && typeof body.mensaje == "string") throw new ZeewError(body?.mensaje);
+      };
 
-      return body;
+      if(Buffer.isBuffer(body)){
+        return body;
+      };
+
+      return undefined;
     } catch (error) {
       throw new ZeewError(error.message);
     }

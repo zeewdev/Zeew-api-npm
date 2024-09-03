@@ -2,10 +2,10 @@ import { ZeewError } from "./utils/ZeewError";
 import { Sfw } from "./gifs/sfw";
 import { Nsfw } from "./gifs/nsfw";
 
-export class gif {
-  token;
-  sfw;
-  nsfw;
+export default class Gif {
+  token: string;
+  sfw: Sfw;
+  nsfw: Nsfw;
 
   constructor(token: string) {
     if (!token) throw new ZeewError("Debes colocar el token");

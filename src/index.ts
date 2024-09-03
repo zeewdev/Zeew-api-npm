@@ -1,2 +1,4 @@
-export { gif } from "./gif";
-export { img } from "./img";
+import Gif from "./gif";
+import Img from "./img";
+
+export default { Img, Gif };

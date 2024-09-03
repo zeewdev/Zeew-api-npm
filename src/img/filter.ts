@@ -3,8 +3,8 @@ import { request } from "../utils/request";
 import { INT } from "../utils/key";
 
 export class Filter {
-  token;
-  uri;
+  private token: string;
+  private uri: string;
 
   constructor(token: string) {
     if (!token) throw new ZeewError("Debes colocar el token");

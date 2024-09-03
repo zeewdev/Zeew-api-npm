@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "CommonJS",
-    "rootDir": "./src",
     "outDir": "./lib",
     "strict": true,
     "noUnusedLocals": true,
@@ -13,5 +12,14 @@
     "useUnknownInCatchVariables": false,
     "strictPropertyInitialization": false,
     "forceConsistentCasingInFileNames": true
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    "**/*.spec.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "tsup.config.ts"
+  ]
 }

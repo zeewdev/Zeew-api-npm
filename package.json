@@ -2,14 +2,27 @@
   "name": "zeew",
   "version": "2.1.6",
   "description": "Wrapper oficial de zeew - imagenes para interaccion y api",
-  "types": "lib/index.d.ts",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.mts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    }
+  },
   "files": [
-    "lib/**/*"
+    "lib"
   ],
   "scripts": {
     "start": "node index.js",
-    "build": "tsc"
+    "build": "tsup"
   },
   "repository": {
     "type": "git",
@@ -30,7 +43,8 @@
     "Recursos para tu bot de discord"
   ],
   "devDependencies": {
-    "@types/node": "^20.4.4",
-    "typescript": "^5.1.6"
+    "@types/node": "^20",
+    "typescript": "^5",
+    "tsup": "latest"
   }
 }
