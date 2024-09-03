@@ -1,7 +1,9 @@
-export async function request<T = any>(url: string, token: string): Promise<T> {
-  return fetch(url, {
+export async function request<T = any>(url: string, token: string) {
+  const fet = await fetch(url, {
     headers: {
       token,
     },
-  }).then((res) => res.json());
+  });
+  const res = await fet.json();
+  return res as T;
 }
