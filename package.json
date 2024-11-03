@@ -22,7 +22,8 @@
   ],
   "scripts": {
     "start": "node index.js",
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "tsup"
   },
   "repository": {
     "type": "git",
